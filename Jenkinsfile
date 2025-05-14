@@ -9,10 +9,19 @@ pipeline {
         SSH_KEY = credentials('ssh-key-ec2')
     }
 
+    tools{
+        nodejs 'Node 20.0.0'
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/esquincaae/healthcheck.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
             }
         }
 
